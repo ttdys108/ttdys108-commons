@@ -29,7 +29,7 @@ public class ServiceException extends Exception {
         this.msg = msg;
     }
 
-    public static ServiceException systemError(Throwable cause) {
+    public static ServiceException sysError(Throwable cause) {
         return new ServiceException(ErrorCode.SYSTEM_ERROR, cause);
     }
 
