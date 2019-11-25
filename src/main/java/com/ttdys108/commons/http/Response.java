@@ -16,8 +16,16 @@ public class Response<T> {
         this.data = data;
     }
 
+    public Response(String code, String msg) {
+        this(code, msg, null);
+    }
+
     public Response(ErrorCode errorCode, T data) {
         this(errorCode.getCode(), errorCode.getMsg(), data);
+    }
+
+    public Response(ErrorCode errorCode) {
+        this(errorCode, null);
     }
 
     private String code;
