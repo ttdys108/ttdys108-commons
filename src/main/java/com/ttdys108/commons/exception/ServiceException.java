@@ -17,8 +17,20 @@ public class ServiceException extends Exception {
         this.msg = msg;
     }
 
+    public ServiceException(ErrorCode errorCode, Throwable cause) {
+        super(cause);
+        this.code = errorCode.getCode();
+        this.msg = errorCode.getMsg();
+    }
+
+    public ServiceException(ErrorCode errorCode, String msg, Throwable cause) {
+        super(cause);
+        this.code = errorCode.getCode();
+        this.msg = msg;
+    }
+
     public static ServiceException systemError(Throwable cause) {
-        return new ServiceException("999999", "system error", cause);
+        return new ServiceException(ErrorCode.SYSTEM_ERROR, cause);
     }
 
 }
