@@ -1,5 +1,6 @@
 package com.ttdys108.commons.http;
 
+import com.ttdys108.commons.exception.ErrorCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,15 +16,19 @@ public class Response<T> {
         this.data = data;
     }
 
+    public Response(ErrorCode errorCode, T data) {
+        this(errorCode.getCode(), errorCode.getMsg(), data);
+    }
+
     private String code;
     private String msg;
     private T data;
 
     public static <T> Response<T> success(T data) {
-        return new Response<>("000000", null, data);
+        return new Response<>(ErrorCode.SUCCESS, data);
     }
 
     public static <T> Response<T> sysError() {
-        return new Response<>("999999", "system error", null);
+        return new Response<>(ErrorCode.SYSTEM_ERROR, null);
     }
 }
