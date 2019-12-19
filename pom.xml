@@ -20,6 +20,7 @@
         <mybatis.version>2.0.0</mybatis.version>
         <lombok.version>1.18.0</lombok.version>
         <javax.persistence.version>1.0</javax.persistence.version>
+        <fastjson.version>1.2.50</fastjson.version>
     </properties>
 
     <dependencyManagement>
@@ -46,6 +47,12 @@
             <artifactId>logback-classic</artifactId>
             <optional>true</optional>
         </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>${fastjson.version}</version>
+        </dependency>
+
 
     </dependencies>
 
