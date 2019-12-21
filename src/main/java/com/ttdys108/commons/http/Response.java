@@ -1,6 +1,7 @@
 package com.ttdys108.commons.http;
 
 import com.ttdys108.commons.exception.ErrorCode;
+import com.ttdys108.commons.exception.ServiceException;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -31,6 +32,10 @@ public class Response<T> {
 
     public static <T> Response<T> error(ErrorCode errorCode) {
         return error(errorCode, null);
+    }
+
+    public static <T> Response<T> error(ServiceException exception) {
+        return create(exception.getCode(), exception.getMsg(), null);
     }
 
     public static <T> Response<T> error() {
