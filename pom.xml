@@ -21,6 +21,7 @@
         <lombok.version>1.18.0</lombok.version>
         <javax.persistence.version>1.0</javax.persistence.version>
         <fastjson.version>1.2.50</fastjson.version>
+        <jwt.verson>3.5.0</jwt.verson>
     </properties>
 
     <dependencyManagement>
@@ -52,7 +53,19 @@
             <artifactId>fastjson</artifactId>
             <version>${fastjson.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>com.auth0</groupId>
+            <artifactId>java-jwt</artifactId>
+            <version>${jwt.verson}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+        </dependency>
 
     </dependencies>
 
