@@ -7,36 +7,34 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Response<T> {
-
-    public Response() {}
-
-    public Response(String code, String msg, T data) {
-        this.code = code;
-        this.msg = msg;
-        this.data = data;
-    }
-
-    public Response(String code, String msg) {
-        this(code, msg, null);
-    }
-
-    public Response(ErrorCode errorCode, T data) {
-        this(errorCode.getCode(), errorCode.getMsg(), data);
-    }
-
-    public Response(ErrorCode errorCode) {
-        this(errorCode, null);
-    }
-
     private String code;
     private String msg;
     private T data;
 
-    public static <T> Response<T> success(T data) {
-        return new Response<>(ErrorCode.SUCCESS, data);
+    public Response() {}
+
+    public static <T> Response<T> create(String code, String msg, T data) {
+        Response<T> response = new Response<>();
+        response.code = code;
+        response.msg = msg;
+        response.data = data;
+        return response;
     }
 
-    public static <T> Response<T> sysError() {
-        return new Response<>(ErrorCode.SYSTEM_ERROR, null);
+    public static <T> Response<T> success(T data) {
+        return error(ErrorCode.SUCCESS, data);
     }
+
+    public static <T> Response<T> error(ErrorCode errorCode, T data) {
+        return create(errorCode.getCode(), errorCode.getMsg(), data);
+    }
+
+    public static <T> Response<T> error(ErrorCode errorCode) {
+        return error(errorCode, null);
+    }
+
+    public static <T> Response<T> error() {
+        return error(ErrorCode.SYSTEM_ERROR, null);
+    }
+
 }
