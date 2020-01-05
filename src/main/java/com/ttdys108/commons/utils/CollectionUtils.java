@@ -2,7 +2,7 @@ package com.ttdys108.commons.utils;
 
 import java.util.*;
 
-public class CollectionUtils extends org.springframework.util.CollectionUtils {
+public class CollectionUtils {
 
     public static <K, V> Map<K, V> ofMap(K key, V value) {
         Map<K, V> map = new HashMap<>();
@@ -20,6 +20,14 @@ public class CollectionUtils extends org.springframework.util.CollectionUtils {
         Set<T> set = new HashSet<>();
         set.add(val);
         return set;
+    }
+
+    public static boolean isEmpty(Collection coll) {
+        return coll == null || coll.isEmpty();
+    }
+
+    public static boolean isEmpty(Map map) {
+        return map == null || map.isEmpty();
     }
 
 }
