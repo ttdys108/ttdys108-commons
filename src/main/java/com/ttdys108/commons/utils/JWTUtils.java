@@ -7,6 +7,8 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.ttdys108.commons.exception.ErrorCode;
+import com.ttdys108.commons.exception.ServiceException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.time.DateUtils;
 
@@ -17,7 +19,7 @@ import java.util.Map;
 @Slf4j
 public class JWTUtils {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ServiceException {
         Map<String, String> params = new HashMap<>();
         String secret = "sdfkjsf";
         params.put("userId", "ty");
@@ -25,6 +27,10 @@ public class JWTUtils {
         System.out.println(token);
         System.out.println(parse(secret, token));
 
+    }
+
+    public static String generate(String secret, Integer expires) {
+        return generate(secret, expires, null);
     }
 
     public static String generate(String secret, Map<String, String> params) {
@@ -35,7 +41,7 @@ public class JWTUtils {
         Algorithm algorithm = Algorithm.HMAC256(secret);
         JWTCreator.Builder builder = JWT.create();
         if(!CollectionUtils.isEmpty(params)) {
-            params.forEach((key, val) -> { builder.withClaim(key, val);});
+            params.forEach(builder::withClaim);
         }
         if(expires != null) {
             Date expiredDate = DateUtils.addMilliseconds(new Date(), expires);
@@ -61,12 +67,13 @@ public class JWTUtils {
      * @param secret secret
      * @param token jwt token
      * @return 如果token不合法，返回空map
+     * @throws JWTVerificationException token ve
      */
-    public static Map<String, String> parse(String secret, String token) {
-        Map<String, String> data = new HashMap<>();
-        Algorithm algorithm = Algorithm.HMAC256(secret);
-        JWTVerifier verifier = JWT.require(algorithm).build();
+    public static Map<String, String> parse(String secret, String token) throws ServiceException {
         try {
+            Map<String, String> data = new HashMap<>();
+            Algorithm algorithm = Algorithm.HMAC256(secret);
+            JWTVerifier verifier = JWT.require(algorithm).build();
             DecodedJWT decodedJWT = verifier.verify(token);
             Map<String, Claim> claims = decodedJWT.getClaims();
             if(!CollectionUtils.isEmpty(claims)) {
@@ -74,10 +81,11 @@ public class JWTUtils {
                     data.put(str, claim.asString());
                 });
             }
+            return data;
         } catch (JWTVerificationException e) {
-            log.error("verfify token: {} failed", token, e);
+            log.error("parse token<{}> error", token, e);
+            throw new ServiceException(ErrorCode.TOKEN_VERIFY_FAILED, e);
         }
-        return data;
     }
 
 }

@@ -22,6 +22,10 @@ public class Response<T> {
         return response;
     }
 
+    public static <T> Response<T> success() {
+        return error(ErrorCode.SUCCESS, null);
+    }
+
     public static <T> Response<T> success(T data) {
         return error(ErrorCode.SUCCESS, data);
     }

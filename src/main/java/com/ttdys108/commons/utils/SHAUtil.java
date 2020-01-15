@@ -15,7 +15,7 @@ public class SHAUtil {
     public static String shaEncode(List<String> params) {
         Collections.sort(params);
         final StringBuilder joinStr = new StringBuilder();
-        params.forEach( param -> joinStr.append(param));
+        params.forEach(joinStr::append);
         return shaEncode(joinStr.toString());
     }
 
@@ -34,7 +34,7 @@ public class SHAUtil {
             }
             return hexValue.toString();
         } catch (Exception e) {
-            log.info("SHA-1 encoding error, encoding string:{}", str, e);
+            log.error("SHA-1 encoding error, encoding string:{}", str, e);
             throw new RuntimeException(e);
         }
     }

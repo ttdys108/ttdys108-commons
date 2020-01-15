@@ -16,6 +16,8 @@ public enum ErrorCode {
     LOGIN_VERIFY_FAIL("401000", "wrong username or password"),
     LOGIN_DYCODE_FAIL("401001", "wrong dynamic code"),
     ILLEGAL_STATUS("402000", "illegal status"),
+    TOKEN_EXPIRED("403000", "token expired"),
+    TOKEN_VERIFY_FAILED("403001", "token verify failed"),
 
     //9开头系统错误
     SYSTEM_ERROR("999999", "system error"),
