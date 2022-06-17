@@ -20,7 +20,7 @@
         <mybatis.version>2.0.0</mybatis.version>
         <lombok.version>1.18.0</lombok.version>
         <javax.persistence.version>1.0</javax.persistence.version>
-        <fastjson.version>1.2.50</fastjson.version>
+        <fastjson.version>1.2.83</fastjson.version>
         <jwt.verson>3.5.0</jwt.verson>
     </properties>
 
